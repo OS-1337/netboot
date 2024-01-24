@@ -1,0 +1,9 @@
+#	.gitignore
+##	IDE Settings
+###	IntelliJ
+.idea
+*.iml
+out
+gen
+##	Working Directory
+./build/

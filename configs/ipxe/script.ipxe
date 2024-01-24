@@ -1,0 +1,27 @@
+#!ipxe
+echo iPXE Network...
+prompt --key 0x02 --timeout 2000 Press Ctrl-B for the iPXE command line and skip... && shell ||
+
+echo Booting from Network...
+:retry_linkckeck
+echo Initializing network interfaces...
+ifopen
+iflinkwait –-timeout 5000 || echo No network connection detected - please check Network cable! && ifclose && goto retry_linkckeck
+#	Check Network connection and if fails after 5s timeout, powercycle the interfaces and retry the loop.
+
+:retry_dhcp
+echo requesting Network Parameters from DHCP...
+dhcp --timeout 5000 && isset ${filename} || echo Retrying... If the issue persists, please check network config... && goto retry_dhcp
+#	Request DHCP lease and if it fails within 5s timeout, retry the loop.
+
+:retry_routing
+echo Got DHCP Lease! Checking Routing Information
+route || echo failed! && goto retry_routing
+#	Check Routing information
+
+echo Success!
+echo IP address: ${net0/ip}
+echo Subnet mask: ${net0/netmask}
+echo Booting from OS/1337
+chain http://boot.os1337.com/boot.php
+#	Boot from boot.os1337.com

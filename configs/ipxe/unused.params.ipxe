@@ -1,0 +1,150 @@
+#!ipxe
+## params not used yet
+### see https://ipxe.org/cmd/ for details
+
+# colour definitions
+## https://ipxe.org/cmd/colour
+colour --rgb 0x000000 0
+# define black as 000000
+colour --rgb 0xff0000 1
+# define red as ff0000
+colour --rgb 0x00ff00 2
+# define green as 00ff00
+colour --rgb 0xffff00 3
+# define yellow as ffff00
+colour --rgb 0x0000ff 4
+# define blue as 0000ff
+colour --rgb 0xff00ff 5
+# define mangenta as 00ff00
+colour --rgb 0x00ffff 6
+# define cyan as 00ffff
+colour --rgb 0xffffff 7
+# define white as ffffff
+colour --rgb 0xff8000 9
+# define amber ff8000 as default
+
+# colour pair selection
+## https://ipxe.org/cmd/cpair
+cpair --foreground 9 --background 0 0
+# default colours amber on black
+cpair --foreground 2 --background 0 1
+# default user interface text green on black
+cpair --foreground 2 --background 9 2
+# highlighted text as green on amber
+cpair --foreground 7 --background 0 3
+# seperators in white on black background
+cpair --foreground 0 --background 7 4
+# editable text in black on whute background
+cpair --foreground 1 --background 4 5
+# error messages in red upon yellow background
+cpair --foreground 5 --background 0 6
+# help urls in magento on black
+cpair --foreground 9 --background 2 7
+# menu selections in amber on green
+
+# console settings
+## https://ipxe.org/cmd/console
+console --x 800 --y 600 --picture http://boot.os1337.org/boot.splash.png
+# Set console resulution to 800x600 and load the http://boot.os1337.org/boot.splash.png image as background.
+
+# PCI Scan
+## https://ipxe.org/cmd/pciscan
+:pciscan
+pciscan addr || goto pciscan_done
+echo Found PCI device ${addr:busdevfn}
+goto pciscan
+:pciscan_done
+# scan for PCI(e) devices and save settings
+
+
+# Prompt orders
+## https://ipxe.org/cmd/prompt
+prompt --timeout 5000 Press any Key to continue || echo rebooting && reboot
+prompt --key 0x12 --timeout 5000 Press CTRL+Q to exit && exit ||
+prompt --key 0x197e --timeout 5000 Press F12 to enter iPXE shell && shell ||
+
+# Check CPU features per CPUID
+## https://ipxe.org/cmd/cpuid
+cpuid --ext 29 && set arch x86_64 || set arch i386
+# Check if system is 64bit capaböe and if not assume it's 32bit.
+cpuid --ext 29 && echo amd64 (ix86-64) supported! || echo no 64bit support (!!)
+cpuid 28 && echo HyperThreading detected || echo no HyperThreading support (!)
+cpuid 6 && echo PAE supported || echo PAE unsupported (!!!)
+cpuid --ecx 5 && echo Intel Virtual Machine Extensions (VMX) supported || echo Intel Virtual Machine Extensions (VMX) unsupported...
+cpuid --ext --ecx 2 && echo AMD Secure Virtual Machine (SVM) supported || echo AMD Secure Virtual Machine (SVM) unsupported...
+cpuid 15 && echo Conditional Move (CMOV) supported || Conditional Move (CMOV) is unsupported...
+
+# Set System Configs
+## https://ipxe.org/cmd/set
+dhcp --timeout 10000 || set dns 94.103.153.176
+# Set DNS Server to OpenNIC Tier 1 if no DHCP could be obtained within 10s
+### See https://servers.opennic.org/ & https://servers.opennic.org/edit.php?srv=ns5.opennic.glue for details
+
+
+# Ping
+## https://ipxe.org/cmd/ping
+ping --count 1 ${netX/gateway} && goto gateway_good || goto gateway_bad
+# check if gateway is reachable
+ping --count 1 boot.os1337.com && echo public OS/1337 bootserver reachable... || echo public OS/1337 bootserver NOT reachable!!!
+
+# NTP
+## https://ipxe.org/cmd/ntp
+ntp ptbtime1.ptb.de
+# set time using PTB timeserver
+## https://www.ptb.de/cms/ptb/fachabteilungen/abtq/gruppe-q4/ref-q42/zeitsynchronisation-von-rechnern-mit-hilfe-des-network-time-protocol-ntp.html
+
+
+# nameserver lookup
+## https://ipxe.org/cmd/nslookup
+nslookup address boot.os1337.com
+echo ${address}
+## lookup ip address of boot.os1337.com
+nslookup net0/next-server boot.os1337.com
+## set TFTP next-server to boot.os1337.com
+
+# show setting
+## https://ipxe.org/cmd/show
+show net0/ip
+# Output IP Adress for net0
+
+# Image Trust setting
+## https://ipxe.org/cmd/imgtrust
+imgtrust
+# Require only Trusted Images
+## requires imgverify
+imgtrust --permanent
+# Only allow trusted images permanently
+## requires imgverify
+imgtrust --allow
+# Allow untrusted images
+
+# Image Verification
+## https://ipxe.org/cmd/imgverify
+### Requires Image Trust
+#### https://ipxe.org/buildcfg/image_trust_cmd
+imgverify --signer trusted-boot@os1337.com script.ipxe script.ipxe.sig
+# Verify Signature of iPXE Script to be signed by trusted-boot@os1337.com
+imgverify --signer trusted-boot@os1337.com boot.img boot.img.sig
+# Verify Boot Image to be signed by trusted-boot@os1337.com
+
+
+# imgfetch http://boot.os1337.com/os1337.img
+# imgfree imagename
+# imgstat imagename
+# autoboot
+# imgstat
+# chain --autofree http://10.0.0.1/scripts/menu.ipxe
+
+# login
+chain http://${username:uristring}:${password:uristring}@my.web.server/boot.ipxe
+## HTTP Login
+
+# reboot
+## https://ipxe.org/cmd/reboot
+reboot
+# reboot system
+
+# poweroff
+## https://ipxe.org/cmd/poweroff
+poweroff
+# shutdown system
