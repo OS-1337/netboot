@@ -36,9 +36,56 @@ Which can be [chainloaded](https://ipxe.org/howto/chainloading) as bootloader, a
 
 ---
 
+##	Navigating the Project Files:
+
+```
+OS/1337 Netboot Repository
+├── build 					# build directory
+│   ├── build.conf.d				# Build Configurations...
+│   │   └── ipxe.config				# ...for iPXE
+│   ├── downloads				# Cached Version of the Source Downloads
+│   ├── scripts					# Build Scripts
+│   │   └── sources.lists.d			# Download URLs
+│   │       └── ipxe.url			# Download URL of the latest release Version Source
+│   └── working					# Working Directory
+├── configs					# Configurations for various Systems & Parts
+│   ├── dhcp					# Configs for ISC DHCPd
+│   │   └── dhcpd.conf				# Configuration Parameters so the DHCP can point at the boot server
+│   ├── efi					# (U)EFI boot files
+│   ├── grub					# Grub Configuration Files
+│   │   └── chainload.ipxe.grub.conf		# GRUB config to chainload iPXE
+│   ├── ipfire					# ipFire Configuration files
+│   │   └── updxlrator				# "UpdateAccelerator", a built in Squid Proxy Cache.
+│   ├── ipxe					# iPXE Configuration Files
+│   │   ├── script.ipxe				# the main boot script
+│   │   ├── script.ipxe.sig			# Signature of said Boot Script for verification
+│   │   └── unused.params.ipxe			# Just a file with some unused params as of now.
+│   └── tftp					# tftp files
+├── pub						# Public Servers' Contents
+│   └── boot.os1337.com				# The Public OS/1337 Bootserver
+│       ├── http				# http_public directory of the OS/1337 bootserver
+│       │   ├── boot.php			# the iPXE boot.php script
+│       │   ├── index.html			# basic HTML file if someone curious stubles upon the server
+│       │   ├── os1337.img			# generic image [i486 CORE Edition]
+│       │   └── trusted-boot@os1337.com.pubkey	# pubkey for the signed files 
+│       └── rsync				# rsync jobs
+│           └── sync.os1337.releases.sh 	# rsync script to sync the public webservers root directory.
+├── docu					# documentation
+│   └── further_reading.md			# further reading materials
+├── LICENSE.md					# License
+├── README.md					# README
+├── TODO.md					# Project TODO list.
+└── .gitignore					# Avoids duplicate code to be held in the repository.
+```
+
+Thus should provide you with a good overview.
 
 
-##	FAQ?
+---
+
+
+
+##	FAQs
 
 ### What license is this project under?
 
