@@ -6,4 +6,6 @@
 out
 gen
 ##	Working Directory
-./build/
+/build/working/
+##	Downloaded Sources
+/build/downloads/

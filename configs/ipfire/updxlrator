@@ -1,0 +1,9 @@
+# ------------------------------------------------------------------------------
+#	Section: OS/1337 Netboot Images (from https://github.com/OS-1337/netboot )
+#	To be stored in /usr/sbin/updxlrator
+# ------------------------------------------------------------------------------
+
+if ($source_url =~ m@^http://boot.os1337.com/.*\.(img)$@i)
+	{
+    	$xlrator_url = &check_cache($source_url,$hostaddr,$username,"OS1337",$mirror);
+	}
