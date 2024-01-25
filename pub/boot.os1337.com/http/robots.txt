@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /
+Disallow: *
+Crawl-delay: 2147483648
+
+#	DO NOT CRAWL EVER AGAIN UNLESS DOMAIN REGISTRATION CHANGES!
+##	VIOLATORS WILL BE PUBLICLY SHAMED !
+###	SEE: https://github.com/greyhat-academy/lists.d#my-domain--site--ip-adresses---are-listed-on-a-blocklist-and-i-want-them-removed IF YOU WANT TO APPEAL!

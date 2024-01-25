@@ -8,7 +8,7 @@ To-Do List for this repository:
 
 ### Add OS/1337 boot image
 To be stored at [``boot.os1337.com/os1337.img``](pub/boot.os1337.com/http/os1337.img)
-- Current file [``os1337.img``](pub/boot.os1337.com/http/os1337.img) is an empty stub!
+- Current file [``os1337.img``](pub/boot.os1337.com/http/os1337.img) is a random development version of OS/1337!
 ###
 
 ###	Spin up bootserver at [``http://boot.os1337.com``](http://boot.os1337.com)
@@ -19,7 +19,8 @@ This is the currently setup domain as per [configurations](configs).
 ###
 
 ### Add Automatic Sync Script to host the [latest released](https://github.com/OS-1337/OS1337/releases/tag/latest) version of [OS/1337](https://github.com/OS-1337/OS1337) as per [releases page](https://github.com/OS-1337/OS1337/releases) on [``http://boot.os1337.com``](http://boot.os1337.com).
-The [current script](pub/boot.os1337.com/rsync/sync.os1337.releases.sh) is empty.
+The [current script](pub/boot.os1337.com/rsync/sync.os1337.releases.sh) is a stub.
+- Requires ``releases.os1337.com`` to be setup.
 ###
 
 ### Add ``version``, ``edition`` and ``arch`` filter to [``boot.php``](/pub/boot.os1337.com/http/boot.php).
@@ -47,3 +48,5 @@ Similar to the scripted pipeline of OS/1337.
 - Enable fully-automated reproduceable builds...
 ###
 
+### Add public keys to [``boot.os1337.com``](pub/boot.os1337.com/http).
+As of now, [``trusted-boot@os1337.com.pubkey``](pub/boot.os1337.com/http/trusted-boot@os1337.com.pubkey) is just an empty stuff.
