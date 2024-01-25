@@ -67,6 +67,7 @@ OS/1337 Netboot Repository
 │       │   ├── boot.php			# the iPXE boot.php script
 │       │   ├── index.html			# basic HTML file if someone curious stubles upon the server
 │       │   ├── os1337.img			# generic image [i486 CORE Edition]
+│       │   ├── robots.txt			# tells crawlers to feck off and not waste bandwith!
 │       │   └── trusted-boot@os1337.com.pubkey	# pubkey for the signed files 
 │       └── rsync				# rsync jobs
 │           └── sync.os1337.releases.sh 	# rsync script to sync the public webservers root directory.
