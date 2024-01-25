@@ -72,7 +72,8 @@ OS/1337 Netboot Repository
 │       └── rsync				# rsync jobs
 │           └── sync.os1337.releases.sh 	# rsync script to sync the public webservers root directory.
 ├── docu					# documentation
-│   └── further_reading.md			# further reading materials
+│   ├── further-reading.md			# further reading materials
+│   └── self-hosting.md				# how and why to self-host the bootserver.
 ├── LICENSE.md					# License
 ├── README.md					# README
 ├── TODO.md					# Project TODO list.
